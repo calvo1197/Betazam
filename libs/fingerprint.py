@@ -99,7 +99,7 @@ def fingerprint(channel_samples, Fs=DEFAULT_FS,
     # return hashes
     return generate_hashes(local_maxima, fan_value=fan_value)
 
-#Funcion para obtener el maximo local 
+#Funcion para obtener el maximo local, puntos maximos (picos de frecuencia) 
 def get_2D_peaks(arr2D, plot=False, amp_min=DEFAULT_AMP_MIN):
     # http://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.morphology.iterate_structure.html#scipy.ndimage.morphology.iterate_structure
     struct = generate_binary_structure(2, 1)
@@ -141,6 +141,7 @@ def get_2D_peaks(arr2D, plot=False, amp_min=DEFAULT_AMP_MIN):
     return zip(frequency_idx, time_idx)
 
 
+#Genera los hashes y calcula la diferencia de tiempo del pico actual a los posibles siguientes
 def generate_hashes(peaks, fan_value=DEFAULT_FAN_VALUE):
     if PEAK_SORT:
       peaks.sort(key=itemgetter(1))
@@ -150,11 +151,11 @@ def generate_hashes(peaks, fan_value=DEFAULT_FAN_VALUE):
       for j in range(1, fan_value):
         if (i + j) < len(peaks):
 
-          # Tomar el valor actual y siguiente de la  frecuencia del pico
+          # Tomar el valor actual y siguiente de la  frecuencia de los picos
           freq1 = peaks[i][IDX_FREQ_I]
           freq2 = peaks[i + j][IDX_FREQ_I]
 
-          # Toma valor actual y siguiende del tiempo del pico 
+          # Toma valor actual y siguiende del tiempo de los picos 
           t1 = peaks[i][IDX_TIME_J]
           t2 = peaks[i + j][IDX_TIME_J]
 

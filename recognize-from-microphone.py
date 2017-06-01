@@ -141,7 +141,6 @@ if __name__ == '__main__':
         yield (sid, offset - mapper[hash])
 
   for channeln, channel in enumerate(data):
-    # TODO: Remove prints or change them into optional logging.
     msg = '   fingerprinting channel %d/%d'
     #print colored(msg, attrs=['dark']) % (channeln+1, channel_amount)
 
@@ -153,7 +152,9 @@ if __name__ == '__main__':
     )"""
 
 
-  # Funcion que compara la cancion grabada con las de la base de datos por id
+  # Funcion que compara el fingerprint grabado con los de la base de datos.
+  # Mira los emparejamientos  (matches) cual tiene menor tiempo de diferencia 
+  # para hacer la busqueda en la base de datos por medio del ID.
 
   def align_matches(matches):
     diff_counter = {}
